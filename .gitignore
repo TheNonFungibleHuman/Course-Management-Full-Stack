@@ -37,3 +37,6 @@ coverage/
 
 # ---- Local planning / team documents (not part of the application) ----
 rough-full-stack/
+
+# ---- Scratch files from tooling ----
+_*
