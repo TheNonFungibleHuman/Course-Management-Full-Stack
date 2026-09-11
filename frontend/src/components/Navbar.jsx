@@ -9,13 +9,8 @@ const LINKS = [
   { to: "/categories", label: "Categories" },
 ];
 
-/**
- * Main navigation.
- *
- * NavLink applies the `active` class to whichever route is current, so the
- * highlight comes from the router rather than from any state we maintain here.
- * On narrow screens the links collapse behind a toggle button.
- */
+// Main navigation. NavLink applies the active class to whichever route is
+// current, so the highlight comes from the router rather than from state here.
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 

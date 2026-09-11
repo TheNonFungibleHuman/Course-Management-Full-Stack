@@ -1,12 +1,8 @@
 import PageHeader from "../components/PageHeader.jsx";
 import StateBlock from "../components/StateBlock.jsx";
 
-/**
- * Temporary placeholder for a page that has not been built yet.
- *
- * It exists so every route in the router resolves to a real component while the
- * application is being assembled. It is replaced page by page.
- */
+// Temporary placeholder for a page that has not been built yet, so every route
+// resolves to a real component while the application is being assembled.
 export default function ComingSoon({ title, subtitle, endpoint, willDo }) {
   return (
     <>

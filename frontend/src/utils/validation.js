@@ -1,14 +1,9 @@
-/**
- * Form validation rules.
- *
- * These mirror the rules the API enforces, so the user gets immediate feedback
- * without a round trip. They are not a substitute for the server-side checks:
- * a request can always be crafted by hand, so the API remains the authority on
- * what reaches the database.
- *
- * Each validator takes the whole form object and returns an object of
- * { fieldName: "message" }. An empty object means the form is valid.
- */
+// Form validation rules. These mirror the rules the API enforces, so the user
+// gets immediate feedback without a round trip. They are not a substitute for
+// the server-side checks, since a request can always be crafted by hand.
+//
+// Each validator takes the whole form object and returns { field: "message" }.
+// An empty object means the form is valid.
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

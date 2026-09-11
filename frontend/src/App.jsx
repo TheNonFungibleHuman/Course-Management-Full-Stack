@@ -8,13 +8,8 @@ import Enrolments from "./pages/Enrolments.jsx";
 import Categories from "./pages/Categories.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
-/**
- * Route definitions.
- *
- * A single layout route wraps every page, so the navigation bar is rendered
- * once and does not remount as the user moves between pages. Each page renders
- * into the layout's <Outlet />.
- */
+// Route definitions. A single layout route wraps every page, so the navbar is
+// rendered once and does not remount as the user moves between pages.
 export default function App() {
   return (
     <BrowserRouter>

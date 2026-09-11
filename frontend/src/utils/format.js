@@ -1,10 +1,6 @@
-/**
- * Formats an ISO date string (YYYY-MM-DD) for display.
- *
- * Parsed and formatted manually rather than with `new Date(value)`, because
- * that constructor treats a bare date string as UTC and can therefore show the
- * previous day in a negative-offset timezone.
- */
+// Formats an ISO date string (YYYY-MM-DD) for display. Parsed manually rather
+// than with new Date(value), which treats a bare date as UTC and can therefore
+// show the previous day in a negative-offset timezone.
 export function formatDate(value) {
   if (!value) return "—";
 
@@ -21,7 +17,7 @@ export function formatDate(value) {
   return `${Number(day)} ${monthName} ${year}`;
 }
 
-/** Formats a number as currency. Falls back to a dash for missing values. */
+// Formats a number as currency, or a dash for missing values
 export function formatCurrency(value) {
   const number = Number(value);
   if (value === null || value === undefined || Number.isNaN(number)) return "—";
@@ -32,14 +28,14 @@ export function formatCurrency(value) {
   });
 }
 
-/** Formats an integer with thousands separators. */
+// Formats an integer with thousands separators
 export function formatNumber(value) {
   const number = Number(value);
   if (value === null || value === undefined || Number.isNaN(number)) return "—";
   return number.toLocaleString();
 }
 
-/** Returns today's date as YYYY-MM-DD, for pre-filling date fields. */
+// Returns today's date as YYYY-MM-DD, for pre-filling date fields
 export function today() {
   const now = new Date();
   const month = String(now.getMonth() + 1).padStart(2, "0");

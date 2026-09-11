@@ -1,30 +1,20 @@
 import axios from "axios";
 
-/**
- * The single HTTP entry point for the entire frontend.
- *
- * Every page and component talks to the backend through the functions below.
- * No component calls a URL directly and no URL is hardcoded outside this file,
- * so the base URL and the error format are defined in exactly one place — and
- * pointing the app at a different backend is a one-line change in `.env`.
- *
- * Each function returns the response body directly, so callers can simply await
- * the result and catch any failure as a normal Error.
- */
+// The single HTTP entry point for the entire frontend. Every page and component
+// talks to the backend through the functions below, so the base URL and the
+// error format live in exactly one place, and pointing the app at a different
+// backend is a one-line change in .env.
+//
+// Each function returns the response body directly, so callers can await the
+// result and catch any failure as a normal Error.
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api",
   headers: { "Content-Type": "application/json" },
 });
 
-/**
- * Response interceptor.
- *
- * The backend always returns { error: "..." } with a failing status code.
- * This unwraps that into a normal Error whose message is safe to show the user
- * directly in a toast or an inline field message, so pages only ever need to
- * catch (err) and read err.message.
- */
+// Unwraps the backend's { error: "..." } envelope into a normal Error, so pages
+// only ever need to catch (err) and read err.message.
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -35,8 +25,8 @@ api.interceptors.response.use(
     return Promise.reject(new Error(apiMessage || networkMessage));
   }
 );
- 
-//Students
+
+// Students
 export const getStudents = () => api.get("/students").then((r) => r.data);
 
 export const getStudent = (id) => api.get(`/students/${id}`).then((r) => r.data);
@@ -50,8 +40,9 @@ export const updateStudent = (id, payload) =>
 export const deleteStudent = (id) =>
   api.delete(`/students/${id}`).then((r) => r.data);
 
-//Courses
-/** @param {number|undefined} categoryId optional filter -> ?category_id= */
+// Courses
+
+// categoryId is an optional filter, sent as ?category_id=
 export const getCourses = (categoryId) =>
   api
     .get("/courses", { params: categoryId ? { category_id: categoryId } : {} })
@@ -68,11 +59,11 @@ export const updateCourse = (id, payload) =>
 export const deleteCourse = (id) =>
   api.delete(`/courses/${id}`).then((r) => r.data);
 
-//Students enrolled in one course — feeds the Course Details page.
+// Students enrolled in one course, for the Course Details page
 export const getCourseStudents = (id) =>
   api.get(`/courses/${id}/students`).then((r) => r.data);
 
-//Categories
+// Categories
 export const getCategories = () => api.get("/categories").then((r) => r.data);
 
 export const createCategory = (payload) =>
@@ -84,7 +75,7 @@ export const updateCategory = (id, payload) =>
 export const deleteCategory = (id) =>
   api.delete(`/categories/${id}`).then((r) => r.data);
 
-//Enrolments
+// Enrolments
 export const getEnrolments = () => api.get("/enrolments").then((r) => r.data);
 
 export const getEnrolment = (id) =>
@@ -99,12 +90,12 @@ export const updateEnrolment = (id, payload) =>
 export const deleteEnrolment = (id) =>
   api.delete(`/enrolments/${id}`).then((r) => r.data);
 
-//Enrolments joined with student, course and category names.
-// The Enrolments table uses this so it can show names instead of IDs.
+// Enrolments joined with student, course and category names, so the Enrolments
+// table can show names instead of IDs
 export const getEnrolmentDetails = () =>
   api.get("/enrolments/details").then((r) => r.data);
 
-//Dashboard
+// Dashboard
 export const getDashboardStats = () =>
   api.get("/dashboard/stats").then((r) => r.data);
 

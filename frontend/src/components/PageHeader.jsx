@@ -1,10 +1,5 @@
-/**
- * Page title, supporting text and action buttons.
- *
- * Kept in one component so every page has the same heading structure and
- * spacing — this is what stops the interface drifting out of alignment
- * page by page.
- */
+// Page title, supporting text and action buttons. Kept in one component so
+// every page shares the same heading structure and spacing.
 export default function PageHeader({ title, subtitle, children }) {
   return (
     <header className="page-head">

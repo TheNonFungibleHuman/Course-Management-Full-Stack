@@ -1,12 +1,6 @@
-/**
- * Renders the loading, error and empty states of a page.
- *
- * Returns null when there is nothing to report, so a page can render it
- * unconditionally above its table:
- *
- *   <StateBlock loading={loading} error={error} isEmpty={rows.length === 0}
- *               emptyTitle="No students yet" onRetry={reload} />
- */
+// Renders the loading, error and empty states of a page. Returns null when
+// there is nothing to report, so a page can render it unconditionally:
+// <StateBlock loading={loading} error={error} isEmpty={rows.length === 0} />
 export default function StateBlock({
   loading,
   error,

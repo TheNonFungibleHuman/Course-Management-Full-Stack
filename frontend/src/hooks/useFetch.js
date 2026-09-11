@@ -1,20 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
-/**
- * Fetches data from the API and tracks the four states a page has to handle:
- * loading, error, empty and data.
- *
- * `request` is a function returning a promise — normally one of the functions
- * from services/api.js, e.g. `useFetch(getStudents)`. It is held in a ref so
- * that passing an inline arrow function does not restart the request on every
- * render.
- *
- * Returns:
- *   data      the resolved value (null until it arrives)
- *   loading   true while a request is in flight
- *   error     the error message, or null
- *   reload    re-runs the request (used by retry buttons and after a mutation)
- */
+// Fetches data from the API and tracks the four states a page has to handle:
+// loading, error, empty and data.
+//
+// request is a function returning a promise, normally one of the functions from
+// services/api.js, e.g. useFetch(getStudents). It is held in a ref so passing an
+// inline arrow function does not restart the request on every render.
+//
+// Returns data, loading, error and reload, where reload re-runs the request.
 export default function useFetch(request) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
