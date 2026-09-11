@@ -35,11 +35,8 @@ api.interceptors.response.use(
     return Promise.reject(new Error(apiMessage || networkMessage));
   }
 );
-
-/* ------------------------------------------------------------------ *
- * Students
- * ------------------------------------------------------------------ */
-
+ 
+//Students
 export const getStudents = () => api.get("/students").then((r) => r.data);
 
 export const getStudent = (id) => api.get(`/students/${id}`).then((r) => r.data);
@@ -53,10 +50,7 @@ export const updateStudent = (id, payload) =>
 export const deleteStudent = (id) =>
   api.delete(`/students/${id}`).then((r) => r.data);
 
-/* ------------------------------------------------------------------ *
- * Courses
- * ------------------------------------------------------------------ */
-
+//Courses
 /** @param {number|undefined} categoryId optional filter -> ?category_id= */
 export const getCourses = (categoryId) =>
   api
@@ -74,14 +68,11 @@ export const updateCourse = (id, payload) =>
 export const deleteCourse = (id) =>
   api.delete(`/courses/${id}`).then((r) => r.data);
 
-/** Students enrolled in one course — feeds the Course Details page. */
+//Students enrolled in one course — feeds the Course Details page.
 export const getCourseStudents = (id) =>
   api.get(`/courses/${id}/students`).then((r) => r.data);
 
-/* ------------------------------------------------------------------ *
- * Categories
- * ------------------------------------------------------------------ */
-
+//Categories
 export const getCategories = () => api.get("/categories").then((r) => r.data);
 
 export const createCategory = (payload) =>
@@ -93,10 +84,7 @@ export const updateCategory = (id, payload) =>
 export const deleteCategory = (id) =>
   api.delete(`/categories/${id}`).then((r) => r.data);
 
-/* ------------------------------------------------------------------ *
- * Enrolments
- * ------------------------------------------------------------------ */
-
+//Enrolments
 export const getEnrolments = () => api.get("/enrolments").then((r) => r.data);
 
 export const getEnrolment = (id) =>
@@ -111,17 +99,12 @@ export const updateEnrolment = (id, payload) =>
 export const deleteEnrolment = (id) =>
   api.delete(`/enrolments/${id}`).then((r) => r.data);
 
-/**
- * Enrolments joined with student, course and category names.
- * The Enrolments table uses this so it can show names instead of IDs.
- */
+//Enrolments joined with student, course and category names.
+// The Enrolments table uses this so it can show names instead of IDs.
 export const getEnrolmentDetails = () =>
   api.get("/enrolments/details").then((r) => r.data);
 
-/* ------------------------------------------------------------------ *
- * Dashboard
- * ------------------------------------------------------------------ */
-
+//Dashboard
 export const getDashboardStats = () =>
   api.get("/dashboard/stats").then((r) => r.data);
 
