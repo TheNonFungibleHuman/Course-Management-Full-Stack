@@ -1,11 +1,9 @@
-/* ==========================================================================
-   Online Course Management System — global stylesheet
+/* Online Course Management System - global stylesheet
 
-   Written as plain CSS with custom properties rather than relying on a CDN,
-   so the application renders correctly as soon as `npm install` completes and
-   works offline. Everything is driven by the variables below, which is what
-   keeps spacing, colour and radius consistent across every page.
-   ========================================================================== */
+   Plain CSS with custom properties rather than a CDN, so the application
+   renders as soon as npm install completes and works offline. Everything is
+   driven by the variables below, which keeps spacing, colour and radius
+   consistent across every page. */
 
 :root {
   --brand: #1f3b73;
@@ -68,7 +66,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ---------- Application shell ---------- */
+/* Application shell */
 
 .app-shell {
   display: flex;
@@ -84,7 +82,7 @@ a:hover {
   padding: 1.75rem 1.25rem 3rem;
 }
 
-/* ---------- Navbar ---------- */
+/* Navbar */
 
 .app-nav {
   background: var(--surface);
@@ -168,7 +166,7 @@ a:hover {
   color: var(--brand);
 }
 
-/* ---------- Page header ---------- */
+/* Page header */
 
 .page-head {
   display: flex;
@@ -191,7 +189,7 @@ a:hover {
   flex-wrap: wrap;
 }
 
-/* ---------- Cards ---------- */
+/* Cards */
 
 .card {
   background: var(--surface);
@@ -216,7 +214,7 @@ a:hover {
   max-width: 640px;
 }
 
-/* ---------- Stat cards ---------- */
+/* Stat cards */
 
 .stat-grid {
   display: grid;
@@ -261,7 +259,7 @@ a:hover {
   margin-top: 0.3rem;
 }
 
-/* ---------- Tables ---------- */
+/* Tables */
 
 .table-wrap {
   overflow-x: auto;
@@ -314,7 +312,7 @@ th.num {
   justify-content: flex-end;
 }
 
-/* ---------- Buttons ---------- */
+/* Buttons */
 
 .btn {
   display: inline-flex;
@@ -367,7 +365,7 @@ th.num {
   background: var(--danger-tint);
 }
 
-/* ---------- Forms ---------- */
+/* Forms */
 
 .form-grid {
   display: grid;
@@ -436,7 +434,7 @@ th.num {
   border-top: 1px solid var(--border);
 }
 
-/* ---------- Alerts and states ---------- */
+/* Alerts and states */
 
 .alert {
   border-radius: var(--radius);
@@ -490,7 +488,7 @@ th.num {
   to { transform: rotate(360deg); }
 }
 
-/* ---------- Badges ---------- */
+/* Badges */
 
 .badge {
   display: inline-block;
@@ -504,7 +502,7 @@ th.num {
 .badge-completed { background: var(--brand-tint);   color: var(--brand); }
 .badge-cancelled { background: #f1f5f9;             color: var(--muted); }
 
-/* ---------- Progress bar (popular courses) ---------- */
+/* Progress bar for popular courses */
 
 .bar-track {
   background: #eef2f7;
@@ -520,7 +518,7 @@ th.num {
   border-radius: 999px;
 }
 
-/* ---------- Misc ---------- */
+/* Misc */
 
 .muted { color: var(--muted); }
 .mono  { font-family: Consolas, "Courier New", monospace; font-size: 0.88em; }
@@ -529,7 +527,7 @@ th.num {
 .mt-2 { margin-top: 1rem; }
 .mb-2 { margin-bottom: 1rem; }
 
-/* ---------- Responsive ---------- */
+/* Responsive */
 
 @media (max-width: 720px) {
   .app-nav-toggle { display: inline-flex; }
