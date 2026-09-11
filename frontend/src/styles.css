@@ -1,0 +1,559 @@
+/* ==========================================================================
+   Online Course Management System — global stylesheet
+
+   Written as plain CSS with custom properties rather than relying on a CDN,
+   so the application renders correctly as soon as `npm install` completes and
+   works offline. Everything is driven by the variables below, which is what
+   keeps spacing, colour and radius consistent across every page.
+   ========================================================================== */
+
+:root {
+  --brand: #1f3b73;
+  --brand-dark: #16294f;
+  --brand-tint: #eef2fa;
+  --accent: #2f6fd0;
+
+  --text: #1f2733;
+  --muted: #64748b;
+
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --border: #dfe5ef;
+
+  --ok: #0f7b4f;
+  --ok-tint: #e6f5ee;
+  --danger: #b42318;
+  --danger-tint: #fdecea;
+
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  margin: 0 0 0.25rem;
+  line-height: 1.25;
+  font-weight: 650;
+  color: var(--brand-dark);
+}
+
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.15rem; }
+h3 { font-size: 1rem; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Application shell ---------- */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 3rem;
+}
+
+/* ---------- Navbar ---------- */
+
+.app-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.app-nav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 60px;
+  flex-wrap: wrap;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+  font-size: 1.02rem;
+  white-space: nowrap;
+}
+
+.app-brand:hover {
+  text-decoration: none;
+}
+
+.app-brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--brand);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.app-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.app-nav-link {
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+  color: var(--muted);
+  font-weight: 550;
+}
+
+.app-nav-link:hover {
+  background: var(--brand-tint);
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.app-nav-link.active {
+  background: var(--brand-tint);
+  color: var(--brand);
+}
+
+.app-nav-toggle {
+  margin-left: auto;
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--brand);
+}
+
+/* ---------- Page header ---------- */
+
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.page-head p {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.page-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.15rem 1.25rem;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 650;
+  color: var(--brand-dark);
+  margin-bottom: 0.9rem;
+}
+
+.card + .card {
+  margin-top: 1.25rem;
+}
+
+.card-narrow {
+  max-width: 640px;
+}
+
+/* ---------- Stat cards ---------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.1rem;
+  border-top: 3px solid var(--brand);
+}
+
+.stat-card.accent-students { border-top-color: #2f6fd0; }
+.stat-card.accent-courses  { border-top-color: #0f7b4f; }
+.stat-card.accent-enrol    { border-top-color: #b45309; }
+.stat-card.accent-cats     { border-top-color: #7c3aed; }
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.stat-value {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+  line-height: 1.1;
+}
+
+.stat-note {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-top: 0.3rem;
+}
+
+/* ---------- Tables ---------- */
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+thead th {
+  text-align: left;
+  background: #f8fafc;
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid #eef2f7;
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: #fafcff;
+}
+
+td.num,
+th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.row-actions {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  background: var(--brand);
+  color: #fff;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--brand-dark);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-sm {
+  padding: 0.32rem 0.6rem;
+  font-size: 0.82rem;
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: #f1f5f9;
+  color: var(--text);
+}
+
+.btn-danger {
+  background: transparent;
+  border-color: #f2c3bd;
+  color: var(--danger);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: var(--danger-tint);
+}
+
+/* ---------- Forms ---------- */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.field input,
+.field select,
+.field textarea {
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--text);
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  width: 100%;
+}
+
+.field textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(47, 111, 208, 0.15);
+}
+
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea {
+  border-color: var(--danger);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 0.8rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- Alerts and states ---------- */
+
+.alert {
+  border-radius: var(--radius);
+  padding: 0.75rem 0.9rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+}
+
+.alert-error {
+  background: var(--danger-tint);
+  border-color: #f2c3bd;
+  color: var(--danger);
+}
+
+.alert-success {
+  background: var(--ok-tint);
+  border-color: #b7e0cc;
+  color: var(--ok);
+}
+
+.alert-info {
+  background: var(--brand-tint);
+  border-color: #ccdaf2;
+  color: var(--brand);
+}
+
+.state-block {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--muted);
+}
+
+.state-title {
+  font-weight: 650;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.spinner {
+  width: 26px;
+  height: 26px;
+  margin: 0 auto 0.75rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Badges ---------- */
+
+.badge {
+  display: inline-block;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.badge-active    { background: var(--ok-tint);      color: var(--ok); }
+.badge-completed { background: var(--brand-tint);   color: var(--brand); }
+.badge-cancelled { background: #f1f5f9;             color: var(--muted); }
+
+/* ---------- Progress bar (popular courses) ---------- */
+
+.bar-track {
+  background: #eef2f7;
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+  min-width: 90px;
+}
+
+.bar-fill {
+  background: var(--accent);
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* ---------- Misc ---------- */
+
+.muted { color: var(--muted); }
+.mono  { font-family: Consolas, "Courier New", monospace; font-size: 0.88em; }
+.nowrap { white-space: nowrap; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-2 { margin-bottom: 1rem; }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .app-nav-toggle { display: inline-flex; }
+
+  .app-nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    padding-bottom: 0.7rem;
+  }
+
+  .app-nav-links.open { display: flex; }
+
+  .app-nav-link { padding: 0.55rem 0.7rem; }
+
+  .app-main { padding: 1.25rem 0.9rem 2.5rem; }
+
+  h1 { font-size: 1.35rem; }
+
+  .stat-value { font-size: 1.5rem; }
+
+  .page-head { flex-direction: column; }
+  .page-actions { width: 100%; }
+  .page-actions .btn { flex: 1; justify-content: center; }
+}

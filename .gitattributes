@@ -1,0 +1,17 @@
+# Normalise line endings so the project behaves the same for every contributor
+# and for anyone who clones it. Files are stored with LF in the repository, and
+# checked out with the platform's native ending.
+* text=auto eol=lf
+
+# Binary assets must never be line-ending converted.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.woff binary
+*.woff2 binary
+
+# Keep the lockfile out of diffs and merge conflicts.
+package-lock.json -diff merge=ours linguist-generated=true
