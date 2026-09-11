@@ -6,9 +6,7 @@ import StatCard from "../components/StatCard.jsx";
 import StateBlock from "../components/StateBlock.jsx";
 import { formatCurrency, formatNumber } from "../utils/format.js";
 
-// Dashboard. Every figure on this page is returned by GET /api/dashboard/stats,
-// which computes them in SQL. Nothing here is hardcoded or counted in the
-// browser.
+// Dashboard. Every figure on this page is returned by GET /api/dashboard/stats, which computes them in SQL. Nothing here is hardcoded or counted in the browser.
 export default function Dashboard() {
   const { data: stats, loading, error, reload } = useFetch(getDashboardStats);
 

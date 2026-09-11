@@ -1,5 +1,4 @@
-// A single figure on the dashboard. The accent prop selects the coloured top
-// border: students, courses, enrol or cats.
+// A single figure on the dashboard. The accent prop selects the coloured top border: students, courses, enrol or cats.
 export default function StatCard({ label, value, note, accent = "" }) {
   return (
     <div className={`stat-card${accent ? ` accent-${accent}` : ""}`}>

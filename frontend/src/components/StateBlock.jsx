@@ -1,6 +1,4 @@
-// Renders the loading, error and empty states of a page. Returns null when
-// there is nothing to report, so a page can render it unconditionally:
-// <StateBlock loading={loading} error={error} isEmpty={rows.length === 0} />
+// Renders the loading, error and empty states of a page. Returns null when there is nothing to report, so a page can render it unconditionally: <StateBlock loading={loading} error={error} isEmpty={rows.length === 0} />
 export default function StateBlock({
   loading,
   error,
