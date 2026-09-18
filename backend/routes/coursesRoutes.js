@@ -1,1 +1,20 @@
-// Placeholder for course API routes.
+import { Router } from "express";
+import {
+  getAllCourses,
+  getCourseById,
+  createCourse,
+  updateCourse,
+  deleteCourse,
+  getCourseStudents,
+} from "../controllers/coursesController.js";
+
+const router = Router();
+
+router.get("/", getAllCourses);
+router.get("/:id/students", getCourseStudents);
+router.get("/:id", getCourseById);
+router.post("/", createCourse);
+router.put("/:id", updateCourse);
+router.delete("/:id", deleteCourse);
+
+export default router;
