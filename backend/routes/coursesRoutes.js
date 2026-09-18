@@ -7,14 +7,19 @@ import {
   deleteCourse,
   getCourseStudents,
 } from "../controllers/coursesController.js";
+import {
+  validateId,
+  validateCategoryFilter,
+  validateCourse,
+} from "../middleware/validate.js";
 
 const router = Router();
 
-router.get("/", getAllCourses);
-router.get("/:id/students", getCourseStudents);
-router.get("/:id", getCourseById);
-router.post("/", createCourse);
-router.put("/:id", updateCourse);
-router.delete("/:id", deleteCourse);
+router.get("/", validateCategoryFilter, getAllCourses);
+router.get("/:id/students", validateId, getCourseStudents);
+router.get("/:id", validateId, getCourseById);
+router.post("/", validateCourse, createCourse);
+router.put("/:id", validateId, validateCourse, updateCourse);
+router.delete("/:id", validateId, deleteCourse);
 
 export default router;

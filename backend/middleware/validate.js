@@ -1,1 +1,211 @@
-// Placeholder for request validation middleware.
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const enrolmentStatuses = new Set(["Active", "Completed", "Cancelled"]);
+
+function isMissing(value) {
+  return (
+    value === undefined ||
+    value === null ||
+    (typeof value === "string" && value.trim() === "")
+  );
+}
+
+function isPositiveInteger(value) {
+  const number = Number(value);
+  return Number.isInteger(number) && number > 0;
+}
+
+function isValidDate(value) {
+  if (typeof value !== "string") {
+    return false;
+  }
+
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+
+  if (!match) {
+    return false;
+  }
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const date = new Date(Date.UTC(year, month - 1, day));
+
+  return (
+    date.getUTCFullYear() === year &&
+    date.getUTCMonth() === month - 1 &&
+    date.getUTCDate() === day
+  );
+}
+
+function rejectInvalid(res, errors) {
+  return res.status(400).json({
+    error: Object.values(errors)[0],
+    errors,
+  });
+}
+
+function validateId(req, res, next) {
+  if (!isPositiveInteger(req.params.id)) {
+    return rejectInvalid(res, { id: "ID must be a positive integer" });
+  }
+
+  next();
+}
+
+function validateCategoryFilter(req, res, next) {
+  const categoryId = req.query.category_id;
+
+  if (!isMissing(categoryId) && !isPositiveInteger(categoryId)) {
+    return rejectInvalid(res, {
+      category_id: "Category ID must be a positive integer",
+    });
+  }
+
+  next();
+}
+
+function validateStudent(req, res, next) {
+  const body = req.body ?? {};
+  const name = typeof body.name === "string" ? body.name.trim() : "";
+  const email = typeof body.email === "string" ? body.email.trim() : "";
+  const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+  const errors = {};
+
+  if (!name) {
+    errors.name = "Name is required";
+  } else if (name.length > 150) {
+    errors.name = "Name cannot exceed 150 characters";
+  }
+
+  if (!email) {
+    errors.email = "Email is required";
+  } else if (!emailPattern.test(email)) {
+    errors.email = "Enter a valid email address";
+  } else if (email.length > 255) {
+    errors.email = "Email cannot exceed 255 characters";
+  }
+
+  if (!phone) {
+    errors.phone = "Phone is required";
+  } else if (phone.length > 30) {
+    errors.phone = "Phone cannot exceed 30 characters";
+  }
+
+  if (Object.keys(errors).length) {
+    return rejectInvalid(res, errors);
+  }
+
+  req.body = { ...body, name, email: email.toLowerCase(), phone };
+  next();
+}
+
+function validateCategory(req, res, next) {
+  const body = req.body ?? {};
+  const categoryName =
+    typeof body.category_name === "string" ? body.category_name.trim() : "";
+  const errors = {};
+
+  if (!categoryName) {
+    errors.category_name = "Category name is required";
+  } else if (categoryName.length > 100) {
+    errors.category_name = "Category name cannot exceed 100 characters";
+  }
+
+  if (Object.keys(errors).length) {
+    return rejectInvalid(res, errors);
+  }
+
+  req.body = { ...body, category_name: categoryName };
+  next();
+}
+
+function validateCourse(req, res, next) {
+  const body = req.body ?? {};
+  const courseName =
+    typeof body.course_name === "string" ? body.course_name.trim() : "";
+  const duration = Number(body.duration);
+  const price = Number(body.price);
+  const errors = {};
+
+  if (!courseName) {
+    errors.course_name = "Course name is required";
+  } else if (courseName.length > 150) {
+    errors.course_name = "Course name cannot exceed 150 characters";
+  }
+
+  if (isMissing(body.duration)) {
+    errors.duration = "Duration is required";
+  } else if (!Number.isFinite(duration) || duration <= 0) {
+    errors.duration = "Duration must be greater than 0";
+  } else if (duration > 99999.99) {
+    errors.duration = "Duration exceeds the allowed value";
+  }
+
+  if (isMissing(body.price)) {
+    errors.price = "Price is required";
+  } else if (!Number.isFinite(price) || price < 0) {
+    errors.price = "Price cannot be negative";
+  } else if (price > 99999999.99) {
+    errors.price = "Price exceeds the allowed value";
+  }
+
+  if (!isPositiveInteger(body.category_id)) {
+    errors.category_id = "Category ID must be a positive integer";
+  }
+
+  if (Object.keys(errors).length) {
+    return rejectInvalid(res, errors);
+  }
+
+  req.body = {
+    ...body,
+    course_name: courseName,
+    duration,
+    price,
+    category_id: Number(body.category_id),
+  };
+  next();
+}
+
+function validateEnrolment(req, res, next) {
+  const body = req.body ?? {};
+  const errors = {};
+
+  if (!isPositiveInteger(body.student_id)) {
+    errors.student_id = "Student ID must be a positive integer";
+  }
+
+  if (!isPositiveInteger(body.course_id)) {
+    errors.course_id = "Course ID must be a positive integer";
+  }
+
+  if (isMissing(body.enrolment_date)) {
+    errors.enrolment_date = "Enrolment date is required";
+  } else if (!isValidDate(body.enrolment_date)) {
+    errors.enrolment_date = "Enrolment date must use YYYY-MM-DD";
+  }
+
+  if (!enrolmentStatuses.has(body.status)) {
+    errors.status = "Status must be Active, Completed or Cancelled";
+  }
+
+  if (Object.keys(errors).length) {
+    return rejectInvalid(res, errors);
+  }
+
+  req.body = {
+    ...body,
+    student_id: Number(body.student_id),
+    course_id: Number(body.course_id),
+  };
+  next();
+}
+
+export {
+  validateId,
+  validateCategoryFilter,
+  validateStudent,
+  validateCategory,
+  validateCourse,
+  validateEnrolment,
+};

@@ -7,14 +7,18 @@ import {
   deleteEnrolment,
   getEnrolmentDetails,
 } from "../controllers/enrolmentsController.js";
+import {
+  validateId,
+  validateEnrolment,
+} from "../middleware/validate.js";
 
 const router = Router();
 
 router.get("/", getAllEnrolments);
 router.get("/details", getEnrolmentDetails);
-router.get("/:id", getEnrolmentById);
-router.post("/", createEnrolment);
-router.put("/:id", updateEnrolment);
-router.delete("/:id", deleteEnrolment);
+router.get("/:id", validateId, getEnrolmentById);
+router.post("/", validateEnrolment, createEnrolment);
+router.put("/:id", validateId, validateEnrolment, updateEnrolment);
+router.delete("/:id", validateId, deleteEnrolment);
 
 export default router;
