@@ -2,5 +2,9 @@
   "name": "course-management-backend",
   "private": true,
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^18.0.0",
+    "mysql2": "^3.24.4"
+  }
 }
