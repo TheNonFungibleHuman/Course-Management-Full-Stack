@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger/swagger.js";
 import studentsRoutes from "./routes/studentsRoutes.js";
 import coursesRoutes from "./routes/coursesRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
@@ -17,6 +19,8 @@ app.use(cors());
 
 // Converts incoming JSON request bodies into req.body for the controllers.
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // These base paths match the URLs used by frontend/src/services/api.js.
 app.use("/api/students", studentsRoutes);
