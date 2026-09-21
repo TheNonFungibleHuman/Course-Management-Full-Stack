@@ -75,20 +75,33 @@ function validateCategoryFilter(req, res, next) {
   next();
 }
 
-function isValidPhone(value) {
-  if (typeof value !== "string") {
-    return false;
+// Phone numbers are Mauritian and must be exactly "+230" followed by eight
+// digits, with nothing between them. Being strict here means the column holds a
+// single canonical shape, so it needs no cleaning later and cannot hold a
+// truncated number.
+const PHONE_PATTERN = /^\+230\d{8}$/;
+
+function phoneError(value) {
+  if (typeof value !== "string" || value.trim() === "") {
+    return "Phone is required";
   }
 
   const trimmed = value.trim();
-  if (!/^[+()\d][\d\s()+-]*$/.test(trimmed)) {
-    return false;
+
+  if (!trimmed.startsWith("+230")) {
+    return "Phone must start with the country code +230";
   }
 
-  // 7 digits is the shortest real subscriber number we accept, and 15 is the
-  // E.164 maximum. Without a lower bound a four-digit entry was accepted.
   const digits = trimmed.replace(/\D/g, "");
-  return digits.length >= 7 && digits.length <= 15;
+  if (digits.length !== 11) {
+    return "Phone must be +230 followed by 8 digits";
+  }
+
+  if (!PHONE_PATTERN.test(trimmed)) {
+    return "Phone must be exactly +230 followed by 8 digits, with no spaces";
+  }
+
+  return null;
 }
 
 function validateStudent(req, res, next) {
@@ -112,12 +125,9 @@ function validateStudent(req, res, next) {
     errors.email = "Email cannot exceed 255 characters";
   }
 
-  if (!phone) {
-    errors.phone = "Phone is required";
-  } else if (!isValidPhone(phone)) {
-    errors.phone = "Phone must be a valid number, 7 to 15 digits";
-  } else if (phone.length > 30) {
-    errors.phone = "Phone cannot exceed 30 characters";
+  const phoneProblem = phoneError(phone);
+  if (phoneProblem) {
+    errors.phone = phoneProblem;
   }
 
   if (Object.keys(errors).length) {

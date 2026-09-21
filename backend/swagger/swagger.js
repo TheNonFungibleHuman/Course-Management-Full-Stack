@@ -92,10 +92,9 @@ const swaggerDocument = {
           },
           phone: {
             type: "string",
-            maxLength: 30,
-            pattern: "^[+()0-9][0-9 ()+-]*$",
-            description: "Between 7 and 15 digits",
-            example: "+230 5712 3401",
+            pattern: "^\\+230[0-9]{8}$",
+            description: "Mauritian number: the country code +230 followed by 8 digits, no spaces",
+            example: "+23057123401",
           },
         },
       },

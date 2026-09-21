@@ -28,22 +28,19 @@ export function formatCurrency(value) {
   return `MUR ${formatted}`;
 }
 
-// Formats a phone number for display. Stored numbers arrive in whatever shape
-// they were entered, some grouped and some as one run of digits, so the digits
-// are regrouped into a consistent series for scanning down a column.
+// Formats a phone number for display. Numbers are stored in one canonical shape,
+// "+230" plus eight digits with no separators, and are grouped here purely so the
+// column is easy to scan. Anything that does not match is passed through as-is
+// rather than mangled.
 export function formatPhone(value) {
   if (value === null || value === undefined) return "—";
   const raw = String(value).trim();
   if (!raw) return "—";
 
-  const plus = raw.startsWith("+");
-  const digits = raw.replace(/\D/g, "");
-  if (digits.length < 9) return raw;
+  const match = raw.match(/^\+(\d{3})(\d{4})(\d{4})$/);
+  if (!match) return raw;
 
-  const country = digits.slice(0, 3);
-  const rest = digits.slice(3);
-  const groups = rest.match(/.{1,4}/g) ?? [];
-  return `${plus ? "+" : ""}${country} ${groups.join(" ")}`.trim();
+  return `+${match[1]} ${match[2]} ${match[3]}`;
 }
 
 // Formats an integer with thousands separators

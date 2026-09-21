@@ -7,16 +7,15 @@
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// A phone number is only a string of digits with optional spacing, dashes,
-// brackets and a leading plus. Between 7 and 15 digits: the lower bound catches
-// obviously truncated entries, the upper bound is the E.164 maximum.
+// Phone numbers must be exactly "+230" followed by eight digits. The same rule
+// is enforced by the API, which is the authority; this exists so the user hears
+// about it before the request is sent.
 function phoneError(value) {
   const raw = String(value || "").trim();
   if (!raw) return "Phone is required";
-  if (!/^[+()\d][\d\s()+-]*$/.test(raw)) return "Phone can only contain digits, spaces and + - ( )";
-  const digits = raw.replace(/\D/g, "");
-  if (digits.length < 7) return "Phone number is too short";
-  if (digits.length > 15) return "Phone number is too long";
+  if (!raw.startsWith("+230")) return "Phone must start with the country code +230";
+  if (raw.replace(/\D/g, "").length !== 11) return "Phone must be +230 followed by 8 digits";
+  if (!/^\+230\d{8}$/.test(raw)) return "Phone must be exactly +230 followed by 8 digits, with no spaces";
   return null;
 }
 

@@ -24,7 +24,11 @@ CREATE TABLE students (
     name       VARCHAR(150) NOT NULL,
     email      VARCHAR(255) NOT NULL,
     phone      VARCHAR(30)  NOT NULL,
-    CONSTRAINT uq_students_email UNIQUE (email)
+    CONSTRAINT uq_students_email UNIQUE (email),
+    -- Phones are stored in one canonical shape, "+230" plus eight digits with no
+    -- separators, so two students cannot share a number and the column needs no
+    -- cleaning before it can be compared or displayed.
+    CONSTRAINT uq_students_phone UNIQUE (phone)
 ) ENGINE = InnoDB;
 
 -- ------------------------------------------------------------------- courses
@@ -86,30 +90,30 @@ INSERT INTO categories (category_name, description) VALUES
     ('Cloud and DevOps', 'Cloud platforms, deployment pipelines and infrastructure');
 
 INSERT INTO students (name, email, phone) VALUES
-    ('Aisha Patel',        'aisha.patel@example.com',        '+230 5712 3401'),
-    ('Daniel Wong',        'daniel.wong@example.com',        '+230 5823 4512'),
-    ('Emma Laurent',       'emma.laurent@example.com',       '+230 5934 5623'),
-    ('Noah Williams',      'noah.williams@example.com',      '+230 5045 6734'),
-    ('Sara Ahmed',         'sara.ahmed@example.com',         '+230 5156 7845'),
-    ('Liam O''Brien',      'liam.obrien@example.com',        '+230 5267 8956'),
-    ('Priya Nair',         'priya.nair@example.com',         '+230 5378 9067'),
-    ('Marco Rossi',        'marco.rossi@example.com',        '+230 5489 0178'),
-    ('Chloe Dubois',       'chloe.dubois@example.com',       '+230 5590 1289'),
-    ('Ethan Brown',        'ethan.brown@example.com',        '+230 5601 2390'),
-    ('Fatima Khan',        'fatima.khan@example.com',        '+230 5712 3402'),
-    ('Lucas Silva',        'lucas.silva@example.com',        '+230 5823 4513'),
-    ('Hannah Kim',         'hannah.kim@example.com',         '+230 5934 5624'),
-    ('Omar Haddad',        'omar.haddad@example.com',        '+230 5045 6735'),
-    ('Isabella Costa',     'isabella.costa@example.com',     '+230 5156 7846'),
-    ('Jacob Meyer',        'jacob.meyer@example.com',        '+230 5267 8957'),
-    ('Amara Okafor',       'amara.okafor@example.com',       '+230 5378 9068'),
-    ('Ryan Tanaka',        'ryan.tanaka@example.com',        '+230 5489 0179'),
-    ('Sofia Petrova',      'sofia.petrova@example.com',      '+230 5590 1290'),
-    ('Nathan Clark',       'nathan.clark@example.com',       '+230 5601 2391'),
-    ('Zara Malik',         'zara.malik@example.com',         '+230 5712 3403'),
-    ('Felix Andersen',     'felix.andersen@example.com',     '+230 5823 4514'),
-    ('Maya Rodriguez',     'maya.rodriguez@example.com',     '+230 5934 5625'),
-    ('Kofi Mensah',        'kofi.mensah@example.com',        '+230 5045 6736');
+    ('Aisha Patel',        'aisha.patel@example.com',        '+23057123401'),
+    ('Daniel Wong',        'daniel.wong@example.com',        '+23058234512'),
+    ('Emma Laurent',       'emma.laurent@example.com',       '+23059345623'),
+    ('Noah Williams',      'noah.williams@example.com',      '+23050456734'),
+    ('Sara Ahmed',         'sara.ahmed@example.com',         '+23051567845'),
+    ('Liam O''Brien',      'liam.obrien@example.com',        '+23052678956'),
+    ('Priya Nair',         'priya.nair@example.com',         '+23053789067'),
+    ('Marco Rossi',        'marco.rossi@example.com',        '+23054890178'),
+    ('Chloe Dubois',       'chloe.dubois@example.com',       '+23055901289'),
+    ('Ethan Brown',        'ethan.brown@example.com',        '+23056012390'),
+    ('Fatima Khan',        'fatima.khan@example.com',        '+23057123402'),
+    ('Lucas Silva',        'lucas.silva@example.com',        '+23058234513'),
+    ('Hannah Kim',         'hannah.kim@example.com',         '+23059345624'),
+    ('Omar Haddad',        'omar.haddad@example.com',        '+23050456735'),
+    ('Isabella Costa',     'isabella.costa@example.com',     '+23051567846'),
+    ('Jacob Meyer',        'jacob.meyer@example.com',        '+23052678957'),
+    ('Amara Okafor',       'amara.okafor@example.com',       '+23053789068'),
+    ('Ryan Tanaka',        'ryan.tanaka@example.com',        '+23054890179'),
+    ('Sofia Petrova',      'sofia.petrova@example.com',      '+23055901290'),
+    ('Nathan Clark',       'nathan.clark@example.com',       '+23056012391'),
+    ('Zara Malik',         'zara.malik@example.com',         '+23057123403'),
+    ('Felix Andersen',     'felix.andersen@example.com',     '+23058234514'),
+    ('Maya Rodriguez',     'maya.rodriguez@example.com',     '+23059345625'),
+    ('Kofi Mensah',        'kofi.mensah@example.com',        '+23050456736');
 
 INSERT INTO courses (course_name, description, duration, price, category_id) VALUES
     ('Full-Stack Web Development',   'Build and deploy a complete application from database to interface', 60, 24000.00, 1),
