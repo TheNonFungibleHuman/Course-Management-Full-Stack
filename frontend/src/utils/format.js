@@ -17,15 +17,15 @@ export function formatDate(value) {
   return `${Number(day)} ${monthName} ${year}`;
 }
 
-// Formats a number as currency, or a dash for missing values
+// Formats a number as Malaysian ringgit, or a dash for missing values. Built by hand rather than with Intl's MYR currency style, because that renders the locale's short symbol "RM" instead of the ISO code the design uses.
 export function formatCurrency(value) {
   const number = Number(value);
   if (value === null || value === undefined || Number.isNaN(number)) return "—";
-  return number.toLocaleString("en-MY", {
-    style: "currency",
-    currency: "MYR",
+  const formatted = number.toLocaleString("en-MY", {
     minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
+  return `MYR ${formatted}`;
 }
 
 // Formats an integer with thousands separators

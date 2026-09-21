@@ -32,12 +32,6 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-
-      <div className="side-foot">
-        Training centre records
-        <br />
-        Updated 11 Sep 2026
-      </div>
     </aside>
   );
 }

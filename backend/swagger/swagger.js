@@ -172,6 +172,12 @@ const swaggerDocument = {
           price: { type: "string", example: "24000.00" },
           category_id: { type: "integer", example: 1 },
           category_name: { type: "string", example: "Web Development" },
+          enrolment_count: {
+            type: "integer",
+            description: "How many students are enrolled on this course",
+            example: 9,
+          },
+          active_enrolments: { type: "integer", example: 7 },
         },
       },
       CourseStudent: {
