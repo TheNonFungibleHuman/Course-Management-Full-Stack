@@ -98,7 +98,17 @@ const swaggerDocument = {
           schema("StudentInput"),
           {
             type: "object",
-            properties: { student_id: { type: "integer", example: 1 } },
+            properties: {
+              student_id: { type: "integer", example: 1 },
+              total_enrolments: {
+                type: "integer",
+                description: "How many courses this student is enrolled on",
+                example: 2,
+              },
+              active_enrolments: { type: "integer", example: 1 },
+              completed_enrolments: { type: "integer", example: 1 },
+              cancelled_enrolments: { type: "integer", example: 0 },
+            },
           },
         ],
       },

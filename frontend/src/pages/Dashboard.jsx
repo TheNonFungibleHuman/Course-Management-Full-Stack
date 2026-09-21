@@ -2,129 +2,156 @@ import { Link } from "react-router-dom";
 import { getDashboardStats } from "../services/api.js";
 import useFetch from "../hooks/useFetch.js";
 import PageHeader from "../components/PageHeader.jsx";
-import StatCard from "../components/StatCard.jsx";
 import StateBlock from "../components/StateBlock.jsx";
 import { formatCurrency, formatNumber } from "../utils/format.js";
 
-// Dashboard. Every figure on this page is returned by GET /api/dashboard/stats, which computes them in SQL. Nothing here is hardcoded or counted in the browser.
+// Dashboard. Every figure comes from GET /api/dashboard/stats, which computes them in SQL.
+//
+// Two deliberate omissions, both learned from reviewing the design: the stat figures carry no explanatory notes, because the ones we had said nothing useful, and there is no running count under the title, because it repeated the stat band a few millimetres below it.
 export default function Dashboard() {
   const { data: stats, loading, error, reload } = useFetch(getDashboardStats);
 
-  // Derived before any early return so the hook order stays stable.
-  const popularCourses = stats?.popular_courses || [];
-  const maxEnrolments = popularCourses.reduce(
+  // Derived before any early return so hook order stays stable.
+  const popular = stats?.popular_courses ?? [];
+  const maxEnrolments = popular.reduce(
     (max, course) => Math.max(max, Number(course.enrolment_count) || 0),
     0
   );
 
   if (loading || error) {
     return (
-      <>
-        <PageHeader title="Dashboard" subtitle="Overview of the course management system" />
+      <div className="content">
+        <PageHeader
+          title="Dashboard"
+          subtitle="Everything happening across the training centre right now."
+        />
         <StateBlock loading={loading} error={error} onRetry={reload} />
-      </>
+      </div>
     );
   }
 
-  const totalEnrolments = Number(stats?.total_enrolments) || 0;
+  const total = Number(stats?.total_enrolments) || 0;
   const active = Number(stats?.active_enrolments) || 0;
   const completed = Number(stats?.completed_enrolments) || 0;
   const cancelled = Number(stats?.cancelled_enrolments) || 0;
+  const courseCount = Number(stats?.total_courses) || 0;
+  const average = courseCount > 0 ? (total / courseCount).toFixed(1) : "—";
 
-  const percent = (value) =>
-    totalEnrolments > 0 ? Math.round((value / totalEnrolments) * 100) : 0;
+  const share = (value) => (total > 0 ? Math.round((value / total) * 100) : 0);
+
+  const statuses = [
+    { label: "Active", value: active, colour: "var(--teal-mid)" },
+    { label: "Completed", value: completed, colour: "var(--ok-light)" },
+    { label: "Cancelled", value: cancelled, colour: "var(--clay)" },
+  ];
 
   return (
-    <>
+    <div className="content">
       <PageHeader
         title="Dashboard"
-        subtitle="Overview of the course management system"
+        subtitle="Everything happening across the training centre right now."
       />
 
-      <div className="stat-grid">
-        <StatCard label="Students" value={formatNumber(stats?.total_students)} accent="students" />
-        <StatCard label="Courses" value={formatNumber(stats?.total_courses)} accent="courses" />
-        <StatCard label="Enrolments" value={formatNumber(totalEnrolments)} accent="enrol" />
-        <StatCard label="Categories" value={formatNumber(stats?.total_categories)} accent="cats" />
-      </div>
+      <section className="stat-band">
+        <div className="stat">
+          <div className="stat-label">Students</div>
+          <div className="stat-row">
+            <div className="stat-value">{formatNumber(stats?.total_students)}</div>
+          </div>
+        </div>
+        <div className="stat">
+          <div className="stat-label">Courses</div>
+          <div className="stat-row">
+            <div className="stat-value">{formatNumber(courseCount)}</div>
+          </div>
+        </div>
+        <div className="stat">
+          <div className="stat-label">Enrolments</div>
+          <div className="stat-row">
+            <div className="stat-value">{formatNumber(total)}</div>
+          </div>
+        </div>
+        <div className="stat">
+          <div className="stat-label">Avg per course</div>
+          <div className="stat-row">
+            <div className="stat-value">{average}</div>
+            <div className="stat-unit">students</div>
+          </div>
+        </div>
+      </section>
 
-      <div className="card">
-        <h2 className="card-title">Enrolments by status</h2>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Status</th>
-                <th className="num">Enrolments</th>
-                <th className="num">Share</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span className="badge badge-active">Active</span></td>
-                <td className="num">{formatNumber(active)}</td>
-                <td className="num">{percent(active)}%</td>
-              </tr>
-              <tr>
-                <td><span className="badge badge-completed">Completed</span></td>
-                <td className="num">{formatNumber(completed)}</td>
-                <td className="num">{percent(completed)}%</td>
-              </tr>
-              <tr>
-                <td><span className="badge badge-cancelled">Cancelled</span></td>
-                <td className="num">{formatNumber(cancelled)}</td>
-                <td className="num">{percent(cancelled)}%</td>
-              </tr>
-            </tbody>
-          </table>
+      <div className="cols">
+        <div className="col col-a">
+          <div className="sec-head">
+            <div className="sec-title">Enrolments by status</div>
+            <div className="sec-meta">{formatNumber(total)} total</div>
+          </div>
+          <div className="rows">
+            {statuses.map((item) => (
+              <div className="row" key={item.label}>
+                <div className="row-top">
+                  <div className="row-name">{item.label}</div>
+                  <div className="row-count">
+                    <strong>{formatNumber(item.value)}</strong>
+                    <span className="row-pct">{share(item.value)}%</span>
+                  </div>
+                </div>
+                <div className="track">
+                  <div
+                    className="fill"
+                    style={{ background: item.colour, width: `${share(item.value)}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="col col-b">
+          <div className="sec-head">
+            <div className="sec-title">Popular courses</div>
+            <div className="sec-meta">by enrolments</div>
+          </div>
+          <div>
+            {popular.map((course, index) => {
+              const count = Number(course.enrolment_count) || 0;
+              const width = maxEnrolments > 0 ? (count / maxEnrolments) * 100 : 0;
+              return (
+                <div className="pop-row" key={course.course_id}>
+                  <div className="pop-rank">{String(index + 1).padStart(2, "0")}</div>
+                  <div className="pop-name">
+                    <Link to={`/courses/${course.course_id}`}>{course.course_name}</Link>
+                  </div>
+                  <div className="pop-track">
+                    <div className="pop-fill" style={{ width: `${width}%` }} />
+                  </div>
+                  <div className="pop-count">{count}</div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      <div className="card">
-        <h2 className="card-title">Popular courses</h2>
-        {popularCourses.length === 0 ? (
-          <p className="muted">No enrolments recorded yet.</p>
-        ) : (
-          <div className="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Course</th>
-                  <th className="num">Enrolments</th>
-                  <th style={{ width: "30%" }}>&nbsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                {popularCourses.map((course) => {
-                  const count = Number(course.enrolment_count) || 0;
-                  const width = maxEnrolments > 0 ? (count / maxEnrolments) * 100 : 0;
-                  return (
-                    <tr key={course.course_id}>
-                      <td>
-                        <Link to={`/courses/${course.course_id}`}>{course.course_name}</Link>
-                      </td>
-                      <td className="num">{formatNumber(count)}</td>
-                      <td>
-                        <div className="bar-track">
-                          <div className="bar-fill" style={{ width: `${width}%` }} />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+      <section className="panel">
+        <div className="panel-label">Revenue earned</div>
+        <div className="panel-value">{formatCurrency(stats?.total_revenue)}</div>
+        <div className="panel-note">
+          Counted from completed enrolments only, priced at the course each student finished.
+        </div>
+        <div className="panel-split">
+          <div>
+            <div className="panel-split-label">Completions</div>
+            <div className="panel-split-value">{formatNumber(completed)}</div>
           </div>
-        )}
-      </div>
-
-      <div className="card">
-        <h2 className="card-title">Course revenue</h2>
-        <p className="stat-value">{formatCurrency(stats?.total_revenue)}</p>
-        <p className="muted" style={{ margin: 0 }}>
-          Total value of all courses currently in the catalogue.
-        </p>
-      </div>
-    </>
+          <div>
+            <div className="panel-split-label">Average</div>
+            <div className="panel-split-value">
+              {completed > 0 ? formatCurrency(Number(stats?.total_revenue) / completed) : "—"}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

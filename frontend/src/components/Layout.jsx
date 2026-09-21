@@ -1,14 +1,16 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar.jsx";
+import Sidebar from "./Sidebar.jsx";
+import Topbar from "./Topbar.jsx";
 
-// Application shell. Each route renders into the Outlet, and because this component does not unmount during navigation, the navbar stays put.
+// Application shell: sidebar, top bar and the routed page. This component does not unmount during navigation, so the sidebar stays put.
 export default function Layout() {
   return (
-    <div className="app-shell">
-      <Navbar />
-      <main className="app-main">
+    <div className="shell">
+      <Sidebar />
+      <div className="main">
+        <Topbar />
         <Outlet />
-      </main>
+      </div>
     </div>
   );
 }
