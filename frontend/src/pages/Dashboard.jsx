@@ -21,10 +21,7 @@ export default function Dashboard() {
   if (loading || error) {
     return (
       <div className="content">
-        <PageHeader
-          title="Dashboard"
-          subtitle="Everything happening across the training centre right now."
-        />
+        <PageHeader title="Dashboard" />
         <StateBlock loading={loading} error={error} onRetry={reload} />
       </div>
     );
@@ -47,10 +44,7 @@ export default function Dashboard() {
 
   return (
     <div className="content">
-      <PageHeader
-        title="Dashboard"
-        subtitle="Everything happening across the training centre right now."
-      />
+      <PageHeader title="Dashboard" />
 
       <section className="stat-band">
         <div className="stat">

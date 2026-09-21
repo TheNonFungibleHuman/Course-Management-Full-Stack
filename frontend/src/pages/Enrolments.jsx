@@ -15,7 +15,7 @@ import Modal from "../components/Modal.jsx";
 import ConfirmDialog from "../components/ConfirmDialog.jsx";
 import FormField from "../components/FormField.jsx";
 import Toaster, { useToasts } from "../components/Toast.jsx";
-import { formatDate, formatNumber, today } from "../utils/format.js";
+import { formatDate, today } from "../utils/format.js";
 
 // Enrolments list. The table reads from the joined endpoint so it shows student and course names rather than bare IDs, and the status badge is the only coloured element in a row so state can be scanned without reading every cell.
 const EMPTY_ENROLMENT = {
@@ -126,14 +126,7 @@ export default function Enrolments() {
 
   return (
     <div className="content">
-      <PageHeader
-        title="Enrolments"
-        subtitle={
-          loading || error
-            ? "Which students are taking which courses."
-            : `${formatNumber(rows.length)} enrolments across ${formatNumber(courseList.length)} courses.`
-        }
-      >
+      <PageHeader title="Enrolments">
         <button type="button" className="btn btn-ghost">Export</button>
         <button type="button" className="btn" onClick={openAdd}>Add enrolment</button>
       </PageHeader>

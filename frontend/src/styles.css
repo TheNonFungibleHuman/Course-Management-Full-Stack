@@ -101,8 +101,8 @@ a:hover {
 .content {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  padding: 30px 40px 44px;
+  gap: 18px;
+  padding: 26px 40px 44px;
 }
 
 /* ---------- sidebar ---------- */
@@ -255,6 +255,10 @@ a:hover {
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
+  /* A rule closes the header band, so the controls below read as a separate
+     group rather than drifting under the title with nothing between them. */
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
 }
 
 .page-title {

@@ -8,7 +8,7 @@ import Modal from "../components/Modal.jsx";
 import ConfirmDialog from "../components/ConfirmDialog.jsx";
 import FormField from "../components/FormField.jsx";
 import Toaster, { useToasts } from "../components/Toast.jsx";
-import { formatNumber, formatPhone } from "../utils/format.js";
+import { formatPhone } from "../utils/format.js";
 
 // Students list. The reference implementation for every record page: fetch, filter, add and edit through one validated form, confirm before deleting, and re-fetch after every write so the table reflects the database.
 //
@@ -96,14 +96,7 @@ export default function Students() {
 
   return (
     <div className="content">
-      <PageHeader
-        title="Students"
-        subtitle={
-          loading || error
-            ? "Everyone registered with the training centre."
-            : `${formatNumber(students.length)} students registered with the training centre.`
-        }
-      >
+      <PageHeader title="Students">
         <button type="button" className="btn btn-ghost">
           Export
         </button>

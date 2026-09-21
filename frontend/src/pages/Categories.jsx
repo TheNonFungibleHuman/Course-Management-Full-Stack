@@ -8,7 +8,6 @@ import Modal from "../components/Modal.jsx";
 import ConfirmDialog from "../components/ConfirmDialog.jsx";
 import FormField from "../components/FormField.jsx";
 import Toaster, { useToasts } from "../components/Toast.jsx";
-import { formatNumber } from "../utils/format.js";
 
 // Categories list. The courses column is counted from the loaded course list, so
 // it stays correct without another endpoint. Deleting a category that still has
@@ -21,14 +20,12 @@ export default function Categories() {
   const { data: courses } = useFetch(getCourses);
   const toasts = useToasts();
 
-  const [query, setQuery] = useState("");
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [pendingDelete, setPendingDelete] = useState(null);
 
   const rows = categories ?? [];
   const courseList = courses ?? [];
-
   const form = useForm({
     initialValues: EMPTY_CATEGORY,
     validate: validateCategory,
@@ -52,16 +49,6 @@ export default function Categories() {
     }
     return map;
   }, [courseList]);
-
-  const visible = useMemo(() => {
-    const needle = query.trim().toLowerCase();
-    if (!needle) return rows;
-    return rows.filter(
-      (category) =>
-        category.category_name.toLowerCase().includes(needle) ||
-        String(category.description ?? "").toLowerCase().includes(needle)
-    );
-  }, [rows, query]);
 
   function openAdd() {
     setEditing(null);
@@ -97,35 +84,11 @@ export default function Categories() {
 
   return (
     <div className="content">
-      <PageHeader
-        title="Categories"
-        subtitle={
-          loading || error
-            ? "How the course catalogue is grouped."
-            : `${formatNumber(rows.length)} categories grouping ${formatNumber(courseList.length)} courses.`
-        }
-      >
+      <PageHeader title="Categories">
         <button type="button" className="btn" onClick={openAdd}>Add category</button>
       </PageHeader>
 
-      <div className="toolbar">
-        <div className="chips" />
-        <div className="search">
-          <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
-            <circle cx="7" cy="7" r="5" fill="none" stroke="var(--ink-muted)" strokeWidth="1.6" />
-            <line x1="10.8" y1="10.8" x2="14.5" y2="14.5" stroke="var(--ink-muted)" strokeWidth="1.6" />
-          </svg>
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search categories"
-            aria-label="Search categories"
-          />
-        </div>
-      </div>
-
-      {loading || error || visible.length === 0 ? (
+      {loading || error || rows.length === 0 ? (
         <div className="table">
           <div className="state">
             {loading && (<><div className="spinner" /><div className="state-title">Loading categories</div></>)}
@@ -153,7 +116,7 @@ export default function Categories() {
             <div className="th right" style={{ width: 140, paddingRight: 20 }}>Actions</div>
           </div>
 
-          {visible.map((category) => (
+          {rows.map((category) => (
             <div className="tr" key={category.category_id}>
               <div className="td cell-id" style={{ width: 64, paddingLeft: 20 }}>{category.category_id}</div>
               <div className="td cell-name" style={{ width: 240, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>

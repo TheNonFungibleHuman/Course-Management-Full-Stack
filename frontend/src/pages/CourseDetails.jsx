@@ -41,10 +41,7 @@ export default function CourseDetails() {
 
   return (
     <div className="content">
-      <PageHeader
-        title={course.course_name}
-        subtitle={course.description || "No description recorded for this course."}
-      >
+      <PageHeader title={course.course_name}>
         <Link to="/courses" className="btn btn-ghost">Back to courses</Link>
       </PageHeader>
 
@@ -78,6 +75,18 @@ export default function CourseDetails() {
           </div>
         </div>
       </section>
+
+      {course.description && (
+        <div className="sec-head">
+          <div className="sec-title">About this course</div>
+        </div>
+      )}
+
+      {course.description && (
+        <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, color: "var(--ink-soft)", maxWidth: 720 }}>
+          {course.description}
+        </p>
+      )}
 
       <div className="sec-head">
         <div className="sec-title">Students on this course</div>

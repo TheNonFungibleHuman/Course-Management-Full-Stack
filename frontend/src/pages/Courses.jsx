@@ -10,6 +10,7 @@ import FormField from "../components/FormField.jsx";
 import Toaster, { useToasts } from "../components/Toast.jsx";
 import { formatNumber } from "../utils/format.js";
 
+
 // Courses list. Price is right-aligned with the cents in a lighter weight so the decimal points line up down the column. The category is a quiet outlined tag rather than a filled badge, because it groups records rather than describing a state, and filled colour is reserved for status elsewhere in the app.
 const EMPTY_COURSE = {
   course_name: "",
@@ -114,14 +115,7 @@ export default function Courses() {
 
   return (
     <div className="content">
-      <PageHeader
-        title="Courses"
-        subtitle={
-          loading || error
-            ? "The course catalogue."
-            : `${formatNumber(rows.length)} courses across ${formatNumber(cats.length)} categories.`
-        }
-      >
+      <PageHeader title="Courses">
         <button type="button" className="btn btn-ghost">Export</button>
         <button type="button" className="btn" onClick={openAdd}>Add course</button>
       </PageHeader>
