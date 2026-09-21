@@ -413,6 +413,14 @@ const swaggerDocument = {
       }),
     },
     "/api/categories/{id}": {
+      get: operation({
+        tag: "Categories",
+        summary: "Get one category",
+        operationId: "getCategoryById",
+        parameters: [id],
+        responseSchema: schema("Category"),
+        errors: [400, 404, 500],
+      }),
       put: operation({
         tag: "Categories",
         summary: "Update a category",

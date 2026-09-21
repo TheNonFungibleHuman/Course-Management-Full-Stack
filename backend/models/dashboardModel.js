@@ -11,7 +11,12 @@ export async function getDashboardStats() {
         (SELECT COUNT(*) FROM enrolments WHERE status = 'Active') AS active_enrolments,
         (SELECT COUNT(*) FROM enrolments WHERE status = 'Completed') AS completed_enrolments,
         (SELECT COUNT(*) FROM enrolments WHERE status = 'Cancelled') AS cancelled_enrolments,
-        (SELECT COALESCE(SUM(price), 0) FROM courses) AS total_revenue
+        -- Revenue counts what has actually been earned: the price of each course
+        -- that has at least one completed enrolment, counted once per completion.
+        (SELECT COALESCE(SUM(c.price), 0)
+           FROM enrolments e
+           JOIN courses c ON c.course_id = e.course_id
+          WHERE e.status = 'Completed') AS total_revenue
     `),
     pool.execute(`
       SELECT c.course_id, c.course_name, COUNT(e.enrolment_id) AS enrolment_count
