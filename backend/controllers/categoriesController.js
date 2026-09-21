@@ -40,7 +40,7 @@ async function deleteCategory(req, res, next) {
       return res.status(404).json({ error: "Category not found" });
     }
 
-    res.status(204).send();
+    res.json({ message: "Category deleted successfully" });
   } catch (error) {
     next(error);
   }

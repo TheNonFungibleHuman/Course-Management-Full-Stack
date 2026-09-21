@@ -44,6 +44,17 @@ function rejectInvalid(res, errors) {
   });
 }
 
+// The description column is optional. An absent value and a blank string both
+// become null, so the frontend does not have to send an empty string to clear it.
+function normaliseDescription(value) {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  return trimmed === "" ? null : trimmed;
+}
+
 function validateId(req, res, next) {
   if (!isPositiveInteger(req.params.id)) {
     return rejectInvalid(res, { id: "ID must be a positive integer" });
@@ -103,6 +114,7 @@ function validateCategory(req, res, next) {
   const body = req.body ?? {};
   const categoryName =
     typeof body.category_name === "string" ? body.category_name.trim() : "";
+  const description = normaliseDescription(body.description);
   const errors = {};
 
   if (!categoryName) {
@@ -111,11 +123,15 @@ function validateCategory(req, res, next) {
     errors.category_name = "Category name cannot exceed 100 characters";
   }
 
+  if (description && description.length > 255) {
+    errors.description = "Description cannot exceed 255 characters";
+  }
+
   if (Object.keys(errors).length) {
     return rejectInvalid(res, errors);
   }
 
-  req.body = { ...body, category_name: categoryName };
+  req.body = { ...body, category_name: categoryName, description };
   next();
 }
 
@@ -123,6 +139,7 @@ function validateCourse(req, res, next) {
   const body = req.body ?? {};
   const courseName =
     typeof body.course_name === "string" ? body.course_name.trim() : "";
+  const description = normaliseDescription(body.description);
   const duration = Number(body.duration);
   const price = Number(body.price);
   const errors = {};
@@ -131,6 +148,10 @@ function validateCourse(req, res, next) {
     errors.course_name = "Course name is required";
   } else if (courseName.length > 150) {
     errors.course_name = "Course name cannot exceed 150 characters";
+  }
+
+  if (description && description.length > 255) {
+    errors.description = "Description cannot exceed 255 characters";
   }
 
   if (isMissing(body.duration)) {
@@ -160,6 +181,7 @@ function validateCourse(req, res, next) {
   req.body = {
     ...body,
     course_name: courseName,
+    description,
     duration,
     price,
     category_id: Number(body.category_id),

@@ -57,6 +57,7 @@ export async function deleteEnrolment(enrolmentId) {
 export async function getEnrolmentDetails() {
   const [rows] = await pool.execute(
     `SELECT e.enrolment_id, e.student_id, s.name AS student_name,
+            s.email AS student_email,
             e.course_id, c.course_name, cat.category_id, cat.category_name,
             e.enrolment_date, e.status
      FROM enrolments e

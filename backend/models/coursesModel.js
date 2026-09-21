@@ -1,7 +1,7 @@
 import pool from "../config/database.js";
 
 const courseSelect = `
-  SELECT c.course_id, c.course_name, c.duration, c.price,
+  SELECT c.course_id, c.course_name, c.description, c.duration, c.price,
          c.category_id, cat.category_name
   FROM courses c
   JOIN categories cat ON cat.category_id = c.category_id
@@ -30,24 +30,30 @@ export async function getCourseById(courseId) {
   return rows[0] ?? null;
 }
 
-export async function createCourse({ course_name, duration, price, category_id }) {
+export async function createCourse({
+  course_name,
+  description,
+  duration,
+  price,
+  category_id,
+}) {
   const [result] = await pool.execute(
-    `INSERT INTO courses (course_name, duration, price, category_id)
-     VALUES (?, ?, ?, ?)`,
-    [course_name, duration, price, category_id]
+    `INSERT INTO courses (course_name, description, duration, price, category_id)
+     VALUES (?, ?, ?, ?, ?)`,
+    [course_name, description, duration, price, category_id]
   );
   return getCourseById(result.insertId);
 }
 
 export async function updateCourse(
   courseId,
-  { course_name, duration, price, category_id }
+  { course_name, description, duration, price, category_id }
 ) {
   const [result] = await pool.execute(
     `UPDATE courses
-     SET course_name = ?, duration = ?, price = ?, category_id = ?
+     SET course_name = ?, description = ?, duration = ?, price = ?, category_id = ?
      WHERE course_id = ?`,
-    [course_name, duration, price, category_id, courseId]
+    [course_name, description, duration, price, category_id, courseId]
   );
   return result.affectedRows ? getCourseById(courseId) : null;
 }

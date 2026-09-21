@@ -57,7 +57,7 @@ async function deleteEnrolment(req, res, next) {
       return res.status(404).json({ error: "Enrolment not found" });
     }
 
-    res.status(204).send();
+    res.json({ message: "Enrolment deleted successfully" });
   } catch (error) {
     next(error);
   }

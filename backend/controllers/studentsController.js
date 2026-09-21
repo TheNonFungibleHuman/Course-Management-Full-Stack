@@ -54,7 +54,7 @@ async function deleteStudent(req, res, next) {
       return res.status(404).json({ error: "Student not found" });
     }
 
-    res.status(204).send();
+    res.json({ message: "Student deleted successfully" });
   } catch (error) {
     next(error);
   }

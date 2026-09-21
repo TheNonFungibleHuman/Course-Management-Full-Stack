@@ -54,7 +54,7 @@ async function deleteCourse(req, res, next) {
       return res.status(404).json({ error: "Course not found" });
     }
 
-    res.status(204).send();
+    res.json({ message: "Course deleted successfully" });
   } catch (error) {
     next(error);
   }
