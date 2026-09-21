@@ -1,14 +1,12 @@
-// Top bar. Deliberately holds only search and the account avatar: the page
-// title lives in the content area, so repeating it here as a breadcrumb would
-// say the same thing twice and cost 40px on every page.
+// Top bar. Holds only the account avatar.
+//
+// A search field used to sit here and did nothing, which is worse than not having
+// one: it invited a click and then delivered nothing. Every list page has its own
+// working search, so the dead one was removed rather than left as decoration.
 export default function Topbar() {
   return (
     <header className="topbar">
-      <div className="topbar-search">
-        <input type="search" placeholder="Search students or courses" aria-label="Search" />
-        <span className="topbar-key">/</span>
-      </div>
-      <div className="avatar">HO</div>
+      <div className="avatar" title="Signed in">HO</div>
     </header>
   );
 }

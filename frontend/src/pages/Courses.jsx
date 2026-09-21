@@ -105,7 +105,7 @@ export default function Courses() {
     const [whole, cents] = Number(value || 0).toFixed(2).split(".");
     return (
       <div className="money">
-        <span className="money-cur">MYR</span>
+        <span className="money-cur">MUR</span>
         <span className="money-whole">{formatNumber(whole)}</span>
         <span className="money-cents">.{cents}</span>
       </div>
@@ -270,7 +270,7 @@ export default function Courses() {
                 required
               />
               <FormField
-                label="Price (MYR)"
+                label="Price (MUR)"
                 name="price"
                 type="number"
                 min="0"

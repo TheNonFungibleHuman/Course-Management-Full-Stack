@@ -75,6 +75,22 @@ function validateCategoryFilter(req, res, next) {
   next();
 }
 
+function isValidPhone(value) {
+  if (typeof value !== "string") {
+    return false;
+  }
+
+  const trimmed = value.trim();
+  if (!/^[+()\d][\d\s()+-]*$/.test(trimmed)) {
+    return false;
+  }
+
+  // 7 digits is the shortest real subscriber number we accept, and 15 is the
+  // E.164 maximum. Without a lower bound a four-digit entry was accepted.
+  const digits = trimmed.replace(/\D/g, "");
+  return digits.length >= 7 && digits.length <= 15;
+}
+
 function validateStudent(req, res, next) {
   const body = req.body ?? {};
   const name = typeof body.name === "string" ? body.name.trim() : "";
@@ -98,6 +114,8 @@ function validateStudent(req, res, next) {
 
   if (!phone) {
     errors.phone = "Phone is required";
+  } else if (!isValidPhone(phone)) {
+    errors.phone = "Phone must be a valid number, 7 to 15 digits";
   } else if (phone.length > 30) {
     errors.phone = "Phone cannot exceed 30 characters";
   }

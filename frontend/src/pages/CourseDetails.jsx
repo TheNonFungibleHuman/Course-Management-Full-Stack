@@ -36,7 +36,7 @@ export default function CourseDetails() {
 
   const money = (value) => {
     const [whole, cents] = Number(value || 0).toFixed(2).split(".");
-    return `MYR ${formatNumber(whole)}.${cents}`;
+    return `MUR ${formatNumber(whole)}.${cents}`;
   };
 
   return (

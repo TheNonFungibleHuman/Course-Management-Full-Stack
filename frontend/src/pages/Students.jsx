@@ -8,7 +8,7 @@ import Modal from "../components/Modal.jsx";
 import ConfirmDialog from "../components/ConfirmDialog.jsx";
 import FormField from "../components/FormField.jsx";
 import Toaster, { useToasts } from "../components/Toast.jsx";
-import { formatNumber } from "../utils/format.js";
+import { formatNumber, formatPhone } from "../utils/format.js";
 
 // Students list. The reference implementation for every record page: fetch, filter, add and edit through one validated form, confirm before deleting, and re-fetch after every write so the table reflects the database.
 //
@@ -210,7 +210,7 @@ export default function Students() {
                 <div className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {student.email}
                 </div>
-                <div className="td cell-text" style={{ width: 168 }}>{student.phone}</div>
+                <div className="td cell-text" style={{ width: 168 }}>{formatPhone(student.phone)}</div>
                 <div className="td cell-figure" style={{ width: 116 }}>
                   {total > 0 ? (
                     <>

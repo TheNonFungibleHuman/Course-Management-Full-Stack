@@ -17,15 +17,33 @@ export function formatDate(value) {
   return `${Number(day)} ${monthName} ${year}`;
 }
 
-// Formats a number as Malaysian ringgit, or a dash for missing values. Built by hand rather than with Intl's MYR currency style, because that renders the locale's short symbol "RM" instead of the ISO code the design uses.
+// Formats a number as Mauritian rupees, or a dash for missing values. Built by hand rather than with Intl's currency style, because that renders a locale short symbol instead of the ISO code the design uses.
 export function formatCurrency(value) {
   const number = Number(value);
   if (value === null || value === undefined || Number.isNaN(number)) return "—";
-  const formatted = number.toLocaleString("en-MY", {
+  const formatted = number.toLocaleString("en-MU", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-  return `MYR ${formatted}`;
+  return `MUR ${formatted}`;
+}
+
+// Formats a phone number for display. Stored numbers arrive in whatever shape
+// they were entered, some grouped and some as one run of digits, so the digits
+// are regrouped into a consistent series for scanning down a column.
+export function formatPhone(value) {
+  if (value === null || value === undefined) return "—";
+  const raw = String(value).trim();
+  if (!raw) return "—";
+
+  const plus = raw.startsWith("+");
+  const digits = raw.replace(/\D/g, "");
+  if (digits.length < 9) return raw;
+
+  const country = digits.slice(0, 3);
+  const rest = digits.slice(3);
+  const groups = rest.match(/.{1,4}/g) ?? [];
+  return `${plus ? "+" : ""}${country} ${groups.join(" ")}`.trim();
 }
 
 // Formats an integer with thousands separators

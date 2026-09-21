@@ -141,12 +141,6 @@ export default function Dashboard() {
             <div className="panel-split-label">Completions</div>
             <div className="panel-split-value">{formatNumber(completed)}</div>
           </div>
-          <div>
-            <div className="panel-split-label">Average</div>
-            <div className="panel-split-value">
-              {completed > 0 ? formatCurrency(Number(stats?.total_revenue) / completed) : "—"}
-            </div>
-          </div>
         </div>
       </section>
     </div>

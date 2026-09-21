@@ -7,6 +7,19 @@
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// A phone number is only a string of digits with optional spacing, dashes,
+// brackets and a leading plus. Between 7 and 15 digits: the lower bound catches
+// obviously truncated entries, the upper bound is the E.164 maximum.
+function phoneError(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "Phone is required";
+  if (!/^[+()\d][\d\s()+-]*$/.test(raw)) return "Phone can only contain digits, spaces and + - ( )";
+  const digits = raw.replace(/\D/g, "");
+  if (digits.length < 7) return "Phone number is too short";
+  if (digits.length > 15) return "Phone number is too long";
+  return null;
+}
+
 export function validateStudent(values) {
   const errors = {};
 
@@ -21,9 +34,8 @@ export function validateStudent(values) {
     errors.email = "Enter a valid email address";
   }
 
-  if (!String(values.phone || "").trim()) {
-    errors.phone = "Phone is required";
-  }
+  const phone = phoneError(values.phone);
+  if (phone) errors.phone = phone;
 
   return errors;
 }
