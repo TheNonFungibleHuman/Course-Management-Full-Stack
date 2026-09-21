@@ -97,9 +97,6 @@ export default function Students() {
   return (
     <div className="content">
       <PageHeader title="Students">
-        <button type="button" className="btn btn-ghost">
-          Export
-        </button>
         <button type="button" className="btn" onClick={openAdd}>
           Add student
         </button>

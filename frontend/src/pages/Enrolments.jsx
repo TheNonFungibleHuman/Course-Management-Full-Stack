@@ -127,7 +127,6 @@ export default function Enrolments() {
   return (
     <div className="content">
       <PageHeader title="Enrolments">
-        <button type="button" className="btn btn-ghost">Export</button>
         <button type="button" className="btn" onClick={openAdd}>Add enrolment</button>
       </PageHeader>
 

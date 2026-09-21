@@ -1,8 +1,5 @@
 -- Online Course Management System - database schema and seed data
---
--- Re-runnable: drops the database first, so this script always leaves the
--- database in exactly the state below. The DROP means running it again wipes
--- any data added through the application, which is the point for a demo reset.
+
 
 DROP DATABASE IF EXISTS course_management;
 CREATE DATABASE course_management;
@@ -198,8 +195,6 @@ INSERT INTO enrolments (student_id, course_id, enrolment_date, status) VALUES
     (13, 11, '2026-04-27', 'Cancelled'),
     (18, 3, '2026-02-12', 'Completed'),
     (2, 12, '2026-03-30', 'Active'),
-    -- Concentrated on the most popular course so the dashboard ranking has a
-    -- clear leader rather than several courses tied at the same count.
     (11, 1, '2026-03-24', 'Active'),
     (12, 1, '2026-06-15', 'Active'),
     (13, 1, '2026-05-08', 'Active');
