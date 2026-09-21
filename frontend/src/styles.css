@@ -408,9 +408,11 @@ a:hover {
 
 /* ---------- stat band ---------- */
 
+/* The band is closed by a single hairline below it. There used to be a second
+   rule above, which together with the page header rule boxed the figures in on
+   both sides and cost a row of vertical space for no benefit. */
 .stat-band {
   display: flex;
-  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 
