@@ -723,6 +723,20 @@ a:hover {
   color: var(--ink);
 }
 
+/* A record name that links to its own page keeps the ink colour so the column
+   still reads as the primary text in the row, and only shows the affordance on
+   hover. Underlines are suppressed so rows do not look like a list of links. */
+td a.cell-link,
+.cell-name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cell-name a:hover {
+  color: var(--teal);
+  text-decoration: none;
+}
+
 .cell-text {
   font-size: 13px;
   color: var(--ink-soft);

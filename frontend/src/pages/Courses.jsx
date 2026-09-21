@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { getCourses, getCategories, createCourse, updateCourse, deleteCourse } from "../services/api.js";
 import useFetch from "../hooks/useFetch.js";
@@ -189,7 +190,7 @@ export default function Courses() {
             <div className="tr" key={course.course_id}>
               <div className="td cell-id" style={{ width: 64, paddingLeft: 20 }}>{course.course_id}</div>
               <div className="td cell-name" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {course.course_name}
+                <Link to={`/courses/${course.course_id}`}>{course.course_name}</Link>
               </div>
               <div className="td" style={{ width: 168 }}>
                 <span className="tag">{course.category_name}</span>
