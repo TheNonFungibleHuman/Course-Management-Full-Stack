@@ -14,7 +14,9 @@ const api = axios.create({
 });
 
 // Unwraps the backend's { error: "..." } envelope into a normal Error, so pages
-// only ever need to catch (err) and read err.message.
+// only ever need to catch (err) and read err.message. Validation failures also
+// carry a per-field map, which is kept on the error so a form can mark the
+// individual inputs as well as showing the sentence.
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -22,7 +24,9 @@ api.interceptors.response.use(
     const networkMessage = error.request
       ? "Cannot reach the server. Is the backend running?"
       : error.message;
-    return Promise.reject(new Error(apiMessage || networkMessage));
+    const wrapped = new Error(apiMessage || networkMessage);
+    if (error.response?.data?.errors) wrapped.errors = error.response.data.errors;
+    return Promise.reject(wrapped);
   }
 );
 
