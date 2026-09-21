@@ -19,14 +19,14 @@ const courseGroup = `
 export async function getAllCourses(categoryId) {
   if (categoryId) {
     const [rows] = await pool.execute(
-      `${courseSelect} WHERE c.category_id = ? ${courseGroup} ORDER BY c.course_id DESC`,
+      `${courseSelect} WHERE c.category_id = ? ${courseGroup} ORDER BY c.course_id ASC`,
       [categoryId]
     );
     return rows;
   }
 
   const [rows] = await pool.execute(
-    `${courseSelect} ${courseGroup} ORDER BY c.course_id DESC`
+    `${courseSelect} ${courseGroup} ORDER BY c.course_id ASC`
   );
   return rows;
 }

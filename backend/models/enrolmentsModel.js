@@ -4,7 +4,7 @@ export async function getAllEnrolments() {
   const [rows] = await pool.execute(
     `SELECT enrolment_id, student_id, course_id, enrolment_date, status
      FROM enrolments
-     ORDER BY enrolment_id DESC`
+     ORDER BY enrolment_id ASC`
   );
   return rows;
 }
@@ -64,7 +64,7 @@ export async function getEnrolmentDetails() {
      JOIN students s ON s.student_id = e.student_id
      JOIN courses c ON c.course_id = e.course_id
      JOIN categories cat ON cat.category_id = c.category_id
-     ORDER BY e.enrolment_id DESC`
+     ORDER BY e.enrolment_id ASC`
   );
   return rows;
 }

@@ -259,7 +259,7 @@ export default function Students() {
                 value={form.values.phone}
                 onChange={form.setField}
                 error={form.errors.phone}
-                placeholder="+230 5712 3401"
+                placeholder="+23057123401"
                 required
               />
             </div>

@@ -253,7 +253,12 @@ const swaggerDocument = {
           active_enrolments: { type: "integer", example: 4 },
           completed_enrolments: { type: "integer", example: 3 },
           cancelled_enrolments: { type: "integer", example: 1 },
-          total_revenue: { type: "string", example: "83000.00" },
+          total_revenue: {
+            type: "string",
+            example: "83000.00",
+            description:
+              "Sum of course prices for Active and Completed enrolments. Cancelled enrolments are excluded.",
+          },
           popular_courses: {
             type: "array",
             items: {

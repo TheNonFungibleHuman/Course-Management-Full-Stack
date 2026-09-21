@@ -15,7 +15,7 @@ const studentSelect = `
 
 export async function getAllStudents() {
   const [rows] = await pool.execute(
-    `${studentSelect} GROUP BY s.student_id, s.name, s.email, s.phone ORDER BY s.student_id DESC`
+    `${studentSelect} GROUP BY s.student_id, s.name, s.email, s.phone ORDER BY s.student_id ASC`
   );
   return rows;
 }

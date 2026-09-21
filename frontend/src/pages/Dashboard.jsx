@@ -130,12 +130,6 @@ export default function Dashboard() {
       <section className="panel">
         <div className="panel-label">Revenue earned</div>
         <div className="panel-value">{formatCurrency(stats?.total_revenue)}</div>
-        <div className="panel-split">
-          <div>
-            <div className="panel-split-label">Completions</div>
-            <div className="panel-split-value">{formatNumber(completed)}</div>
-          </div>
-        </div>
       </section>
     </div>
   );

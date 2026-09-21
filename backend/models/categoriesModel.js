@@ -2,7 +2,7 @@ import pool from "../config/database.js";
 
 export async function getAllCategories() {
   const [rows] = await pool.execute(
-    "SELECT category_id, category_name, description FROM categories ORDER BY category_name"
+    "SELECT category_id, category_name, description FROM categories ORDER BY category_id ASC"
   );
   return rows;
 }
