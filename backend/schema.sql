@@ -193,4 +193,9 @@ INSERT INTO enrolments (student_id, course_id, enrolment_date, status) VALUES
     (11, 15, '2026-06-29', 'Active'),
     (13, 11, '2026-04-27', 'Cancelled'),
     (18, 3, '2026-02-12', 'Completed'),
-    (2, 12, '2026-03-30', 'Active');
+    (2, 12, '2026-03-30', 'Active'),
+    -- Concentrated on the most popular course so the dashboard ranking has a
+    -- clear leader rather than several courses tied at the same count.
+    (11, 1, '2026-03-24', 'Active'),
+    (12, 1, '2026-06-15', 'Active'),
+    (13, 1, '2026-05-08', 'Active');
