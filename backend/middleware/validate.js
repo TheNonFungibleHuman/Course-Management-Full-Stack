@@ -184,8 +184,8 @@ function validateCourse(req, res, next) {
 
   if (isMissing(body.duration)) {
     errors.duration = "Duration is required";
-  } else if (!Number.isFinite(duration) || duration <= 0) {
-    errors.duration = "Duration must be greater than 0";
+  } else if (!Number.isFinite(duration) || !Number.isInteger(duration) || duration <= 0) {
+    errors.duration = "Duration must be a whole number greater than 0";
   } else if (duration > 99999.99) {
     errors.duration = "Duration exceeds the allowed value";
   }

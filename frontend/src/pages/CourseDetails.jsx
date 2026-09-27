@@ -109,24 +109,24 @@ export default function CourseDetails() {
           </div>
         </div>
       ) : (
-        <div className="table">
-          <div className="tr head">
-            <div className="th" style={{ width: 72, paddingLeft: 20 }}>ID</div>
-            <div className="th" style={{ width: 220 }}>Student</div>
-            <div className="th" style={{ flex: 1, minWidth: 0 }}>Email</div>
-            <div className="th" style={{ width: 160 }}>Enrolled</div>
-            <div className="th" style={{ width: 130, paddingRight: 20 }}>Status</div>
+        <div className="table" role="table" aria-label="Students on this course">
+          <div className="tr head" role="row">
+            <div role="columnheader" className="th" style={{ width: 72, paddingLeft: 20 }}>ID</div>
+            <div role="columnheader" className="th" style={{ width: 220 }}>Student</div>
+            <div role="columnheader" className="th" style={{ flex: 1, minWidth: 0 }}>Email</div>
+            <div role="columnheader" className="th" style={{ width: 160 }}>Enrolled</div>
+            <div role="columnheader" className="th" style={{ width: 130, paddingRight: 20 }}>Status</div>
           </div>
 
           {enrolled.map((student) => (
-            <div className="tr" key={student.enrolment_id}>
-              <div className="td cell-id" style={{ width: 72, paddingLeft: 20 }}>{student.student_id}</div>
-              <div className="td cell-name" style={{ width: 220 }}>{student.name}</div>
-              <div className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <div className="tr" role="row" key={student.enrolment_id}>
+              <div role="cell" className="td cell-id" style={{ width: 72, paddingLeft: 20 }}>{student.student_id}</div>
+              <div role="cell" className="td cell-name" style={{ width: 220 }}>{student.name}</div>
+              <div role="cell" className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {student.email}
               </div>
-              <div className="td cell-text" style={{ width: 160 }}>{formatDate(student.enrolment_date)}</div>
-              <div className="td" style={{ width: 130, paddingRight: 20 }}>
+              <div role="cell" className="td cell-text" style={{ width: 160 }}>{formatDate(student.enrolment_date)}</div>
+              <div role="cell" className="td" style={{ width: 130, paddingRight: 20 }}>
                 <span className={`badge ${STATUS_CLASS[student.status] ?? "badge-muted"}`}>
                   {student.status}
                 </span>

@@ -185,34 +185,34 @@ export default function Enrolments() {
           </div>
         </div>
       ) : (
-        <div className="table">
-          <div className="tr head">
-            <div className="th" style={{ width: 64, paddingLeft: 20 }}>ID</div>
-            <div className="th" style={{ width: 210 }}>Student</div>
-            <div className="th" style={{ flex: 1, minWidth: 0 }}>Course</div>
-            <div className="th" style={{ width: 160 }}>Category</div>
-            <div className="th" style={{ width: 128 }}>Enrolled</div>
-            <div className="th" style={{ width: 118 }}>Status</div>
-            <div className="th right" style={{ width: 140, paddingRight: 20 }}>Actions</div>
+        <div className="table" role="table" aria-label="Enrolments table">
+          <div className="tr head" role="row">
+            <div role="columnheader" className="th" style={{ width: 64, paddingLeft: 20 }}>ID</div>
+            <div role="columnheader" className="th" style={{ width: 210 }}>Student</div>
+            <div role="columnheader" className="th" style={{ flex: 1, minWidth: 0 }}>Course</div>
+            <div role="columnheader" className="th" style={{ width: 160 }}>Category</div>
+            <div role="columnheader" className="th" style={{ width: 128 }}>Enrolled</div>
+            <div role="columnheader" className="th" style={{ width: 118 }}>Status</div>
+            <div role="columnheader" className="th right" style={{ width: 140, paddingRight: 20 }}>Actions</div>
           </div>
 
           {visible.map((row) => (
-            <div className="tr" key={row.enrolment_id}>
-              <div className="td cell-id" style={{ width: 64, paddingLeft: 20 }}>{row.enrolment_id}</div>
-              <div className="td cell-name" style={{ width: 210, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <div className="tr" role="row" key={row.enrolment_id}>
+              <div role="cell" className="td cell-id" style={{ width: 64, paddingLeft: 20 }}>{row.enrolment_id}</div>
+              <div role="cell" className="td cell-name" style={{ width: 210, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {row.student_name}
               </div>
-              <div className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <div role="cell" className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {row.course_name}
               </div>
-              <div className="td" style={{ width: 160 }}>
+              <div role="cell" className="td" style={{ width: 160 }}>
                 <span className="tag">{row.category_name}</span>
               </div>
-              <div className="td cell-text" style={{ width: 128 }}>{formatDate(row.enrolment_date)}</div>
-              <div className="td" style={{ width: 118 }}>
+              <div role="cell" className="td cell-text" style={{ width: 128 }}>{formatDate(row.enrolment_date)}</div>
+              <div role="cell" className="td" style={{ width: 118 }}>
                 <span className={`badge ${STATUS_CLASS[row.status] ?? "badge-muted"}`}>{row.status}</span>
               </div>
-              <div className="td" style={{ width: 140, paddingRight: 20 }}>
+              <div role="cell" className="td" style={{ width: 140, paddingRight: 20 }}>
                 <div className="row-actions">
                   <button type="button" className="btn-link" onClick={() => openEdit(row)}>Edit</button>
                   <button type="button" className="btn-link danger" onClick={() => setPendingDelete(row)}>

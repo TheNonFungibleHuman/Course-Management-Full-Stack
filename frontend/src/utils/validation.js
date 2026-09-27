@@ -49,8 +49,8 @@ export function validateCourse(values) {
   const duration = Number(values.duration);
   if (values.duration === "" || values.duration === null || values.duration === undefined) {
     errors.duration = "Duration is required";
-  } else if (Number.isNaN(duration) || duration <= 0) {
-    errors.duration = "Duration must be greater than 0";
+  } else if (Number.isNaN(duration) || !Number.isInteger(duration) || duration <= 0) {
+    errors.duration = "Duration must be a whole number greater than 0";
   }
 
   const price = Number(values.price);

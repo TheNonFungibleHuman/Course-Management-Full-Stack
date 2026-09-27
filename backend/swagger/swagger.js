@@ -191,7 +191,7 @@ const swaggerDocument = {
           student_id: { type: "integer", example: 1 },
           name: { type: "string", example: "Aisha Patel" },
           email: { type: "string", format: "email" },
-          phone: { type: "string", example: "+230 5712 3401" },
+          phone: { type: "string", example: "+23057123401" },
           enrolment_id: { type: "integer", example: 1 },
           enrolment_date: { type: "string", format: "date" },
           status: { type: "string", enum: ["Active", "Completed", "Cancelled"] },

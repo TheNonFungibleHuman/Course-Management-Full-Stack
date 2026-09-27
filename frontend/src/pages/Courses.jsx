@@ -175,32 +175,32 @@ export default function Courses() {
           </div>
         </div>
       ) : (
-        <div className="table">
-          <div className="tr head">
-            <div className="th" style={{ width: 64, paddingLeft: 20 }}>ID</div>
-            <div className="th" style={{ flex: 1, minWidth: 0 }}>Course</div>
-            <div className="th" style={{ width: 168 }}>Category</div>
-            <div className="th" style={{ width: 100 }}>Duration</div>
-            <div className="th right" style={{ width: 130 }}>Price</div>
-            <div className="th right" style={{ width: 104 }}>Enrolled</div>
-            <div className="th right" style={{ width: 140, paddingRight: 20 }}>Actions</div>
+        <div className="table" role="table" aria-label="Courses table">
+          <div className="tr head" role="row">
+            <div role="columnheader" className="th" style={{ width: 64, paddingLeft: 20 }}>ID</div>
+            <div role="columnheader" className="th" style={{ flex: 1, minWidth: 0 }}>Course</div>
+            <div role="columnheader" className="th" style={{ width: 168 }}>Category</div>
+            <div role="columnheader" className="th" style={{ width: 100 }}>Duration</div>
+            <div role="columnheader" className="th right" style={{ width: 130 }}>Price</div>
+            <div role="columnheader" className="th right" style={{ width: 104 }}>Enrolled</div>
+            <div role="columnheader" className="th right" style={{ width: 140, paddingRight: 20 }}>Actions</div>
           </div>
 
           {visible.map((course) => (
-            <div className="tr" key={course.course_id}>
-              <div className="td cell-id" style={{ width: 64, paddingLeft: 20 }}>{course.course_id}</div>
-              <div className="td cell-name" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <div className="tr" role="row" key={course.course_id}>
+              <div role="cell" className="td cell-id" style={{ width: 64, paddingLeft: 20 }}>{course.course_id}</div>
+              <div role="cell" className="td cell-name" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 <Link to={`/courses/${course.course_id}`}>{course.course_name}</Link>
               </div>
-              <div className="td" style={{ width: 168 }}>
+              <div role="cell" className="td" style={{ width: 168 }}>
                 <span className="tag">{course.category_name}</span>
               </div>
-              <div className="td cell-text" style={{ width: 100 }}>{course.duration} wks</div>
-              <div className="td" style={{ width: 130 }}>{money(course.price)}</div>
-              <div className="td cell-figure right" style={{ width: 104 }}>
+              <div role="cell" className="td cell-text" style={{ width: 100 }}>{course.duration} wks</div>
+              <div role="cell" className="td" style={{ width: 130 }}>{money(course.price)}</div>
+              <div role="cell" className="td cell-figure right" style={{ width: 104 }}>
                 {Number(course.enrolment_count) || 0}
               </div>
-              <div className="td" style={{ width: 140, paddingRight: 20 }}>
+              <div role="cell" className="td" style={{ width: 140, paddingRight: 20 }}>
                 <div className="row-actions">
                   <button type="button" className="btn-link" onClick={() => openEdit(course)}>Edit</button>
                   <button type="button" className="btn-link danger" onClick={() => setPendingDelete(course)}>

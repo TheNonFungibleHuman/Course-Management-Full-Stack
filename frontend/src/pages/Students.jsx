@@ -176,32 +176,32 @@ export default function Students() {
           </div>
         </div>
       ) : (
-        <div className="table">
-          <div className="tr head">
-            <div className="th" style={{ width: 68, paddingLeft: 20 }}>ID</div>
-            <div className="th" style={{ width: 236 }}>Name</div>
-            <div className="th" style={{ flex: 1, minWidth: 0 }}>Email</div>
-            <div className="th" style={{ width: 168 }}>Phone</div>
-            <div className="th" style={{ width: 116 }}>Enrolments</div>
-            <div className="th right" style={{ width: 132, paddingRight: 20 }}>Actions</div>
+        <div className="table" role="table" aria-label="Students table">
+          <div className="tr head" role="row">
+            <div role="columnheader" className="th" style={{ width: 68, paddingLeft: 20 }}>ID</div>
+            <div role="columnheader" className="th" style={{ width: 236 }}>Name</div>
+            <div role="columnheader" className="th" style={{ flex: 1, minWidth: 0 }}>Email</div>
+            <div role="columnheader" className="th" style={{ width: 168 }}>Phone</div>
+            <div role="columnheader" className="th" style={{ width: 116 }}>Enrolments</div>
+            <div role="columnheader" className="th right" style={{ width: 132, paddingRight: 20 }}>Actions</div>
           </div>
 
           {visible.map((student) => {
             const total = Number(student.total_enrolments) || 0;
             const active = Number(student.active_enrolments) || 0;
             return (
-              <div className="tr" key={student.student_id}>
-                <div className="td cell-id" style={{ width: 68, paddingLeft: 20 }}>
+              <div className="tr" role="row" key={student.student_id}>
+                <div role="cell" className="td cell-id" style={{ width: 68, paddingLeft: 20 }}>
                   {student.student_id}
                 </div>
-                <div className="td cell-name" style={{ width: 236 }}>
+                <div role="cell" className="td cell-name" style={{ width: 236 }}>
                   {student.name}
                 </div>
-                <div className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <div role="cell" className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {student.email}
                 </div>
-                <div className="td cell-text" style={{ width: 168 }}>{formatPhone(student.phone)}</div>
-                <div className="td cell-figure" style={{ width: 116 }}>
+                <div role="cell" className="td cell-text" style={{ width: 168 }}>{formatPhone(student.phone)}</div>
+                <div role="cell" className="td cell-figure" style={{ width: 116 }}>
                   {total > 0 ? (
                     <>
                       {active} <span className="of">of {total}</span>
@@ -210,7 +210,7 @@ export default function Students() {
                     <span className="of">None</span>
                   )}
                 </div>
-                <div className="td" style={{ width: 132, paddingRight: 20 }}>
+                <div role="cell" className="td" style={{ width: 132, paddingRight: 20 }}>
                   <div className="row-actions">
                     <button type="button" className="btn-link" onClick={() => openEdit(student)}>
                       Edit

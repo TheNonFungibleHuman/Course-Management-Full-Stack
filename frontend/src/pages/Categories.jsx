@@ -107,28 +107,28 @@ export default function Categories() {
           </div>
         </div>
       ) : (
-        <div className="table">
-          <div className="tr head">
-            <div className="th" style={{ width: 64, paddingLeft: 20 }}>ID</div>
-            <div className="th" style={{ width: 240 }}>Category</div>
-            <div className="th" style={{ flex: 1, minWidth: 0 }}>Description</div>
-            <div className="th right" style={{ width: 120 }}>Courses</div>
-            <div className="th right" style={{ width: 140, paddingRight: 20 }}>Actions</div>
+        <div className="table" role="table" aria-label="Categories table">
+          <div className="tr head" role="row">
+            <div role="columnheader" className="th" style={{ width: 64, paddingLeft: 20 }}>ID</div>
+            <div role="columnheader" className="th" style={{ width: 240 }}>Category</div>
+            <div role="columnheader" className="th" style={{ flex: 1, minWidth: 0 }}>Description</div>
+            <div role="columnheader" className="th right" style={{ width: 120 }}>Courses</div>
+            <div role="columnheader" className="th right" style={{ width: 140, paddingRight: 20 }}>Actions</div>
           </div>
 
           {rows.map((category) => (
-            <div className="tr" key={category.category_id}>
-              <div className="td cell-id" style={{ width: 64, paddingLeft: 20 }}>{category.category_id}</div>
-              <div className="td cell-name" style={{ width: 240, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <div className="tr" role="row" key={category.category_id}>
+              <div role="cell" className="td cell-id" style={{ width: 64, paddingLeft: 20 }}>{category.category_id}</div>
+              <div role="cell" className="td cell-name" style={{ width: 240, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {category.category_name}
               </div>
-              <div className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <div role="cell" className="td cell-text" style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {category.description || <span style={{ color: "var(--ink-muted)" }}>No description</span>}
               </div>
-              <div className="td cell-figure right" style={{ width: 120 }}>
+              <div role="cell" className="td cell-figure right" style={{ width: 120 }}>
                 {courseCounts.get(category.category_id) ?? 0}
               </div>
-              <div className="td" style={{ width: 140, paddingRight: 20 }}>
+              <div role="cell" className="td" style={{ width: 140, paddingRight: 20 }}>
                 <div className="row-actions">
                   <button type="button" className="btn-link" onClick={() => openEdit(category)}>Edit</button>
                   <button type="button" className="btn-link danger" onClick={() => setPendingDelete(category)}>
