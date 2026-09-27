@@ -10,6 +10,8 @@ A full-stack web application for managing students, courses, categories and enro
 
 ---
 
+**Demo Video**: **https://youtu.be/vYTxrpgYj2I**
+
 ## Architecture
 
 ```
