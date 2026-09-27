@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;450;500;600;700&family=Great+Vibes&display=swap");
 
-/* Hinata Institute - design tokens.
-   Warm bone neutrals rather than cold grey, deep teal as the single colour
-   moment. Values mirror the Paper file so the built app matches the design. */
-
 :root {
   color-scheme: light;
 
